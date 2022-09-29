@@ -2,31 +2,42 @@ import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 const gallery = document.querySelector(".gallery");
 const images = gallery.childNodes;
-
 console.log(galleryItems);
+
 for (const item of galleryItems) {
   const img = document.createElement("img");
   img.setAttribute("src", item.preview);
+  img.setAttribute("data-source", item.original);
   img.setAttribute("description", item.description);
   img.style.width = "100%";
   img.style.height = "100%";
   gallery.append(img);
-
-  img.addEventListener("click", (event) => {
-    console.log(event.currentTarget);
-    img.removeAttribute("src");
-    img.setAttribute("src", item.original);
-    img.style.width = "1278px";
-    img.style.height = "853px";
-    img.style.position = "absolute";
-    img.addEventListener("click", () => {
-      img.removeAttribute("src");
-      img.setAttribute("src", item.preview);
-      img.style.width = "509px";
-      img.style.height = "340px";
-    });
-  });
 }
+const img = document.querySelectorAll(".gallery img");
 
-console.log(images);
-console.log(gallery);
+gallery.addEventListener("click", (event) => {
+  if (event.target.nodeName !== "IMG") {
+    return;
+  }
+  console.log("to jest targetto: " + event.target.src);
+  event.target.removeAttribute("src");
+  event.target.setAttribute(
+    "data-source",
+    `${(event.currentTarget.dataset = "source")}`
+  );
+  event.target.style.width = "1278px";
+  event.target.style.height = "853px";
+  event.target.style.position = "absolute";
+  gallery.addEventListener("click", (event) => {
+    if (event.target.nodeName !== "IMG") {
+      return;
+    }
+    event.target.removeAttribute("src");
+    event.target.setAttribute("src", event.currentTarget.src);
+    event.target.style.position = "static";
+    event.target.style.width = "100%";
+    event.target.style.height = "100%";
+  });
+});
+
+console.log(img);
