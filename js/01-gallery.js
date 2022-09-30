@@ -2,7 +2,7 @@ import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 
 const gallery = document.querySelector(".gallery");
-let newGallery = galleryItems
+const newGallery = galleryItems
   .map(
     ({
       preview,
@@ -19,11 +19,22 @@ let newGallery = galleryItems
   )
   .join("");
 gallery.innerHTML = newGallery;
+const child = document.querySelector(".gallery__link");
 
-function onClick(event) {
+const onClick = (event) => {
   event.preventDefault();
   if (event.target.nodeName !== "IMG") {
     return;
   }
-}
+  const evt = basicLightbox.create(
+    `<img src="${event.target.dataset.source}" width="800" height="600">`
+  );
+  evt.show();
+  const escape = (e) => {
+    if (e.code === "Escape") {
+      evt.close();
+    }
+  };
+  window.addEventListener("keydown", escape);
+};
 gallery.addEventListener("click", onClick);
