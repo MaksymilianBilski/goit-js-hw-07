@@ -1,7 +1,6 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 const gallery = document.querySelector(".gallery");
-const child = gallery.childNodes;
 
 for (const item of galleryItems) {
   gallery.insertAdjacentHTML(
@@ -26,3 +25,29 @@ const lightbox = () => {
 };
 
 gallery.addEventListener("click", lightbox());
+
+//2 metoda
+// const gallery = document.querySelector(".gallery");
+// galleryItems.map((el) => {
+//   gallery.insertAdjacentHTML(
+//     "afterbegin",
+//     `<a class="gallery__item" href="${el.original}">
+//   <img class="gallery__image" src="${el.preview}" alt="${el.description}" />
+// </a>`
+//   );
+// });
+
+// function onClick(evt) {
+//   evt.preventDefault();
+//   if (evt.target.nodeName !== "IMG") {
+//     return console.log("cos");
+//   }
+// }
+
+// gallery.addEventListener("click", onClick);
+// const lightbox = new SimpleLightbox(".gallery__item", {
+//   captionsData: "alt",
+//   canimationSpeed: 125,
+//   captionPosition: "outside",
+//   fadeSpeed: 650,
+// });
